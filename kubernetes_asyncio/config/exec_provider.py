@@ -79,6 +79,9 @@ class ExecProvider(object):
         stderr = await proc.stderr.read()
         exit_code = await proc.wait()
 
+        print("This is extra debug")
+        print(f"stdout:\n{stdout}\nstderr:\n{stderr}\nKUBERNETES_EXEC_INFO_ENV:\n{self.env['KUBERNETES_EXEC_INFO']}\nARGS:\n{self.args}\n")
+
         if exit_code != 0:
             msg = 'exec: process returned %d' % exit_code
             stderr = stderr.strip()
@@ -86,8 +89,6 @@ class ExecProvider(object):
                 msg += '. %s' % stderr
             raise ConfigException(msg)
         try:
-            print("This is extra debug")
-            print(f"stdout:\n{stdout}\nstderr:\n{stderr}\nKUBERNETES_EXEC_INFO_ENV:\n{self.env['KUBERNETES_EXEC_INFO']}\nARGS:\n{self.args}\n")
             data = json.loads(stdout)
         except ValueError as de:
             raise ConfigException(
