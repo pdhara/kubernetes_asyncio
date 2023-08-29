@@ -87,8 +87,7 @@ class ExecProvider(object):
             raise ConfigException(msg)
         try:
             print("This is extra debug")
-            print(stdout)
-            print(stderr)
+            print(f"stdout:\n{stdout}\nstderr:\n{stderr}\nKUBERNETES_EXEC_INFO_ENV:\n{self.env['KUBERNETES_EXEC_INFO']}\n")
             data = json.loads(stdout)
         except ValueError as de:
             raise ConfigException(
