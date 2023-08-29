@@ -86,6 +86,9 @@ class ExecProvider(object):
                 msg += '. %s' % stderr
             raise ConfigException(msg)
         try:
+            print("This is extra debug")
+            print(stdout)
+            print(stderr)
             data = json.loads(stdout)
         except ValueError as de:
             raise ConfigException(
